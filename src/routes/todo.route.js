@@ -1,9 +1,13 @@
 import { Router } from "express";
+import createTodo from "../controllers/todo.controller";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.send("Hello World");
+router.post("/todos", validateToken, validateNewTodo, createTodo);
+
+
+router.put("/todos/:id", (req, res, next) => {
+    
 });
 
 export default router;

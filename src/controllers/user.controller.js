@@ -1,4 +1,4 @@
-import user from '../models/user.model';
+import User from '../models/user.model';
 import bcrypt from 'bcryptjs';
 
 import crearToken from '../utils/jwt';
@@ -9,9 +9,9 @@ const createUser = async (req, res, next) => {
     
         const saltRounds = process.env.SALT_ROUNDS;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
-        const user = await user.create({ name, email, password: hashedPassword });
+        const newUser = await User.create({ name, email, password: hashedPassword });
     
-        res.status(201).json(user);
+        res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ message: error.message });
         next(error);
@@ -21,7 +21,7 @@ const createUser = async (req, res, next) => {
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await user.findOne({ where: { email } });
+        const user = await User.findOne({ where: { email } });
     
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -37,3 +37,5 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+export { createUser, loginUser };
