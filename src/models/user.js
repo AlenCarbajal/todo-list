@@ -1,5 +1,5 @@
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+import { DataTypes } from sequelize;
+import sequelize from '../db.js';
 
 const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 255;
@@ -34,4 +34,4 @@ const User = sequelize.define(
 
 );
 
-module.exports = User;
+export default User;
