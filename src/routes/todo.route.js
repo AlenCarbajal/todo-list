@@ -3,8 +3,12 @@ import createTodo from "../controllers/todo.controller";
 
 const router = Router();
 
-router.post("/todos", validateToken, validateNewTodo, createTodo);
-router.put("/todos/:id", validateToken, validateUpdateTodo, validateTodoOwner, updateTodo);
-router.get("/todos", validateToken, getTodos);
+// Apply validateToken middleware to all routes
+router.use(validateToken);
+
+router.get("/", getTodos);
+router.post("/", validateNewTodo, createTodo);
+router.delete("/:id", validateTodoOwner, deleteTodo);
+router.put("/:id", validateTodoOwner, validateUpdateTodo, updateTodo);
 
 export default router;
