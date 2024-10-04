@@ -26,7 +26,7 @@ async function updateTodo (req, res, next) {
 
 const getTodos = async (req, res, next) => {
     try {
-        const todos = await Todo.findAll();
+        const todos = await Todo.findByFk(req.user.email);
         res.status(200).json(todos);
     } catch (error) {
         res.status(500).json({ message: error.message });
