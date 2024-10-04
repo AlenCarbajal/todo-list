@@ -6,6 +6,7 @@ const MAX_TITLE_LENGTH = 255;
 
 const MIN_DESCRIPTION_LENGTH = 2;
 const MAX_DESCRIPTION_LENGTH = 2048;
+
 const Todo = sequelize.define(
     'Todo',
     {
@@ -13,6 +14,13 @@ const Todo = sequelize.define(
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
+        },
+        userEmail: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                isEmail: true
+            }
         },
         title: {
             type: DataTypes.STRING,
@@ -22,7 +30,7 @@ const Todo = sequelize.define(
                 len: [MIN_TITLE_LENGTH, MAX_TITLE_LENGTH]
             }
         },
-        title: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {

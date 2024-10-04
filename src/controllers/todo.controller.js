@@ -10,6 +10,20 @@ const createTodo = async (req, res, next) => {
     }
 }
 
+async function updateTodo (req, res, next) {
+    const todoId = req.params.id;
+    const { title, description } = req.body;
+    const todo = await Todo.findByPk(todoId);
+    if (title) {
+        todo.title = title;
+    }
+    if (description) {
+        todo.description = description;
+    }
+    await todo.save();
+    res.status(200).json(todo);
+}
+
 const getTodos = async (req, res, next) => {
     try {
         const todos = await Todo.findAll();

@@ -6,8 +6,6 @@ const router = Router();
 router.post("/todos", validateToken, validateNewTodo, createTodo);
 
 
-router.put("/todos/:id", (req, res, next) => {
-    
-});
+router.put("/todos/:id", validateToken, validateUpdateTodo, validateTodoOwner, updateTodo);
 
 export default router;
